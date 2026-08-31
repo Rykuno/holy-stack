@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { envSchema } from './configs/env.schema.js';
 import { AppConfig } from './configs/app.config.js';
+import { MailerConfig } from './configs/mailer.config.js';
 import { DatabaseModule } from './database/database.module.js';
 import { CacheModule } from '@nestjs/cache-manager';
 import { CacheConfig } from './configs/cache.config.js';
@@ -16,7 +17,7 @@ import { MailerModule } from './mailer/mailer.module.js';
     ConfigModule.forRoot({
       validationSchema: envSchema,
       validate: (config) => envSchema.parse(config),
-      load: [AppConfig],
+      load: [AppConfig, MailerConfig],
       isGlobal: true,
       cache: true,
     }),
@@ -37,5 +38,6 @@ import { MailerModule } from './mailer/mailer.module.js';
     OpenApiModule,
     MailerModule,
   ],
+  exports: [MailerModule],
 })
 export class CommonModule {}

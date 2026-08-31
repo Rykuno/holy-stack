@@ -1,0 +1,35 @@
+{
+  "name": "emails",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Email templates powered by React Email.",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "dev": "email dev -p 8001",
+    "build": "vp pack",
+    "export": "email export",
+    "check": "vp check"
+  },
+  "dependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-email": "catalog:"
+  },
+  "devDependencies": {
+    "@react-email/ui": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}
