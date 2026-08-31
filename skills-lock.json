@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "skills": {
+    "nestjs-best-practices": {
+      "source": "kadajett/agent-nestjs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nestjs-best-practices/SKILL.md",
+      "computedHash": "58f8a630637be3acce1f118c747d68160346ada8a43d76cb52a5b4c4edaa2d37"
+    },
+    "postgres": {
+      "source": "planetscale/database-skills",
+      "sourceType": "github",
+      "skillPath": "skills/postgres/SKILL.md",
+      "computedHash": "2acf9fae4fcdb6c392923708b67234828f8a9f10b10dfa5d228eaab6e9108245"
+    },
+    "shadcn": {
+      "source": "shadcn-ui/ui",
+      "sourceType": "github",
+      "skillPath": "skills/shadcn/SKILL.md",
+      "computedHash": "c1a68ee06a668aced9ab2b5fbdea5f989864123794eb2e056b339a072dbb7f10"
+    },
+    "tanstack-devtools": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-devtools/skills/tanstack-devtools/SKILL.md",
+      "computedHash": "ecb51f9902ae6de9f512b299e6c16bd4befc3ff2c62f8cd1ece07e31b1c73dfe"
+    },
+    "tanstack-form": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-form/skills/tanstack-form/SKILL.md",
+      "computedHash": "1eb9f9fc43ab2777f586f916b2234c5340ed98f296a98b22c75cbbafcbd29b86"
+    },
+    "tanstack-pacer": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-pacer/skills/tanstack-pacer/SKILL.md",
+      "computedHash": "abc0e5bcf7b80a48b39d3e3aa1d6e67220c34a8a3240c1d6a28eba3fc2b5cfd0"
+    },
+    "tanstack-query": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-query/skills/tanstack-query/SKILL.md",
+      "computedHash": "b8a0477cd4d7bf8fa54d27f8e64d82388402f0d502591db50a357df5b9995c75"
+    },
+    "tanstack-router": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-router/skills/tanstack-router/SKILL.md",
+      "computedHash": "24beccc4016f91bab65547209cfd849ea5e66f3d5d92820683a9dd84669ced56"
+    },
+    "tanstack-start": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-start/skills/tanstack-start/SKILL.md",
+      "computedHash": "e9d8355fe3e47b118e739081f1123c52aa0ecde57da840722177e1ad5caf9908"
+    },
+    "vercel-composition-patterns": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/composition-patterns/SKILL.md",
+      "computedHash": "575757e3e25761c8c562d6e395d29f0b76c98b1273c0bd72d88e6ab1bc9c7d42"
+    }
+  }
+}
