@@ -1,11 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { betterAuth } from 'better-auth';
-import { drizzleAdapter } from '@better-auth/drizzle-adapter/relations-v2';
-import { InjectDrizzle } from '@nest-native/drizzle';
-import { AppConfig } from '../../common/configs/app.config.js';
-import * as schema from '../../common/database/drizzle.schema.js';
-import { type DrizzleClient } from '../../common/database/drizzle.type.js';
-import { type ConfigType } from '@nestjs/config';
+import { Inject, Injectable } from "@nestjs/common";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
+import { InjectDrizzle } from "@nest-native/drizzle";
+import { AppConfig } from "../../common/configs/app.config.js";
+import * as schema from "../../common/database/drizzle.schema.js";
+import { type DrizzleClient } from "../../common/database/drizzle.type.js";
+import { type ConfigType } from "@nestjs/config";
+import { openAPI } from "better-auth/plugins";
 
 @Injectable()
 export class BetterAuthService {
@@ -18,10 +19,11 @@ export class BetterAuthService {
   ) {
     this.auth = betterAuth({
       database: drizzleAdapter(this.drizzle, {
-        provider: 'pg',
+        provider: "pg",
         schema,
       }),
       baseURL: this.appConfig.baseUrl,
+      basePath: "/better-auth",
       account: {
         accountLinking: {
           allowDifferentEmails: true,
@@ -29,6 +31,7 @@ export class BetterAuthService {
         },
       },
       appName: this.appConfig.name,
+      plugins: [openAPI()],
     });
   }
 }

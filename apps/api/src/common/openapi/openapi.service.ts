@@ -1,38 +1,37 @@
-import { INestApplication, Inject, Injectable, Logger } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule, type OpenAPIObject } from '@nestjs/swagger';
-import { apiReference } from '@scalar/nestjs-api-reference';
-import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
-import path from 'node:path';
-import openapiTS from 'openapi-typescript';
-import { astToString, type OpenAPI3 } from 'openapi-typescript/dist/index.js';
-import ts from 'typescript';
-import { AppConfig } from '../configs/app.config.js';
-import { type ConfigType } from '@nestjs/config';
-
-const OUTPUT_DIRECTORY = 'generated';
-const OUTPUT_FILE = 'openapi.d.ts';
-const OUTPUT_PATH = path.resolve(OUTPUT_DIRECTORY, OUTPUT_FILE);
+import { INestApplication, Inject, Injectable, Logger } from "@nestjs/common";
+import { DocumentBuilder, SwaggerModule, type OpenAPIObject } from "@nestjs/swagger";
+import { apiReference } from "@scalar/nestjs-api-reference";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+import openapiTS from "openapi-typescript";
+import { astToString, type OpenAPI3 } from "openapi-typescript/dist/index.js";
+import ts from "typescript";
+import { type ConfigType } from "@nestjs/config";
+import { OpenApiConfig } from "../configs/openapi.confg.js";
 
 @Injectable()
 export class OpenApiService {
   private readonly logger = new Logger(OpenApiService.name);
-  constructor(@Inject(AppConfig.KEY) private readonly appConfig: ConfigType<typeof AppConfig>) {}
+
+  constructor(
+    @Inject(OpenApiConfig.KEY) private readonly openApiConfig: ConfigType<typeof OpenApiConfig>,
+  ) {}
 
   setup(app: INestApplication) {
     const config = new DocumentBuilder()
-      .setTitle(this.appConfig.name)
-      .setDescription(`${this.appConfig.name} API`)
-      .setVersion('1.0')
+      .setTitle(this.openApiConfig.title)
+      .setDescription(this.openApiConfig.description)
+      .setVersion(this.openApiConfig.version)
       .build();
 
     const document = SwaggerModule.createDocument(app, config);
 
     app.use(
-      '/openapi',
+      "/openapi",
       apiReference({
         sources: [
-          { content: document, title: this.appConfig.name },
-          { url: '/auth/client/open-api/generate-schema', title: 'BetterAuth' },
+          { content: document, title: this.openApiConfig.title },
+          { url: "/better-auth/open-api/generate-schema", title: "BetterAuth" },
         ],
       }),
     );
@@ -42,7 +41,7 @@ export class OpenApiService {
 
   generateTypesInBackground(document: OpenAPIObject): void {
     void this.generateTypes(document).catch((error: unknown) => {
-      this.logger.error('Failed to generate OpenAPI types', error);
+      this.logger.error("Failed to generate OpenAPI types", error);
     });
   }
 
@@ -53,19 +52,19 @@ export class OpenApiService {
       return false;
     }
 
-    await mkdir(OUTPUT_DIRECTORY, { recursive: true });
-    await writeFile(OUTPUT_PATH, contents, 'utf8');
-    this.logger.log(`Generated OpenAPI types at ${OUTPUT_PATH}`);
-
+    const outputPath = this.openApiConfig.outputPath;
+    await mkdir(path.dirname(outputPath), { recursive: true });
+    await writeFile(outputPath, contents, "utf8");
+    this.logger.log(`Generated OpenAPI types at ${outputPath}`);
     return true;
   }
 
   private async buildTypeDefinitions(document: OpenAPIObject): Promise<string> {
-    const blobType = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier('Blob'));
+    const blobType = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Blob"));
     const nullType = ts.factory.createLiteralTypeNode(ts.factory.createNull());
     const ast = await openapiTS(document as OpenAPI3, {
       transform(schema) {
-        if (schema.format !== 'binary') {
+        if (schema.format !== "binary") {
           return;
         }
 
@@ -77,9 +76,11 @@ export class OpenApiService {
   }
 
   private async haveTypeDefinitionsChanged(nextContents: string): Promise<boolean> {
+    const outputPath = this.openApiConfig.outputPath;
+
     try {
-      await access(OUTPUT_PATH);
-      const currentContents = await readFile(OUTPUT_PATH, 'utf8');
+      await access(outputPath);
+      const currentContents = await readFile(outputPath, "utf8");
       return currentContents !== nextContents;
     } catch {
       return true;
