@@ -1,14 +1,14 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module.js';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { ConfigType } from '@nestjs/config';
-import { AppConfig } from './common/configs/app.config.js';
-import { OpenApiService } from './common/openapi/openapi.service.js';
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module.js";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { ConfigType } from "@nestjs/config";
+import { AppConfig } from "./configs/app.config.js";
+import { OpenApiService } from "./common/openapi/openapi.service.js";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    routeConflictPolicy: { duplicate: 'error', shadow: 'warn' },
-    routeResolutionStrategy: 'specificity',
+    routeConflictPolicy: { duplicate: "error", shadow: "warn" },
+    routeResolutionStrategy: "specificity",
   });
   const appConfig = app.get<ConfigType<typeof AppConfig>>(AppConfig.KEY);
 

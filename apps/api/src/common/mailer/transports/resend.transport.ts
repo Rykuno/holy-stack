@@ -1,8 +1,8 @@
-import { type ConfigType } from '@nestjs/config';
-import { Resend } from 'resend';
-import { type MailerConfig } from '../../configs/mailer.config.js';
-import { MailerTransport } from '../mailer.transport.js';
-import { type SendMailMessage } from '../mailer.types.js';
+import { type ConfigType } from "@nestjs/config";
+import { Resend } from "resend";
+import { type MailerConfig } from "../../../configs/mailer.config.js";
+import { MailerTransport } from "../mailer.transport.js";
+import { type SendMailMessage } from "../mailer.types.js";
 
 export class ResendTransport extends MailerTransport {
   private readonly resend: Resend;

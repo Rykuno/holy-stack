@@ -1,23 +1,25 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigType } from '@nestjs/config';
-import { envSchema } from './configs/env.schema.js';
-import { AppConfig } from './configs/app.config.js';
-import { MailerConfig } from './configs/mailer.config.js';
-import { DatabaseModule } from './database/database.module.js';
-import { CacheModule } from '@nestjs/cache-manager';
-import { CacheConfig } from './configs/cache.config.js';
-import { createKeyv } from '@keyv/redis';
-import { Keyv } from 'keyv';
-import { KeyvCacheableMemory } from 'cacheable';
-import { OpenApiModule } from './openapi/openapi.module.js';
-import { MailerModule } from './mailer/mailer.module.js';
+import { Module } from "@nestjs/common";
+import { ConfigModule, ConfigType } from "@nestjs/config";
+import { envSchema } from "../configs/env.schema.js";
+import { AppConfig } from "../configs/app.config.js";
+import { MailerConfig } from "../configs/mailer.config.js";
+import { StorageConfig } from "../configs/storage.config.js";
+import { DatabaseModule } from "./database/database.module.js";
+import { CacheModule } from "@nestjs/cache-manager";
+import { CacheConfig } from "../configs/cache.config.js";
+import { createKeyv } from "@keyv/redis";
+import { Keyv } from "keyv";
+import { KeyvCacheableMemory } from "cacheable";
+import { OpenApiModule } from "./openapi/openapi.module.js";
+import { MailerModule } from "./mailer/mailer.module.js";
+import { StorageModule } from "./storage/storage.module.js";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       validationSchema: envSchema,
       validate: (config) => envSchema.parse(config),
-      load: [AppConfig, MailerConfig],
+      load: [AppConfig, MailerConfig, StorageConfig],
       isGlobal: true,
       cache: true,
     }),
@@ -37,7 +39,8 @@ import { MailerModule } from './mailer/mailer.module.js';
     DatabaseModule,
     OpenApiModule,
     MailerModule,
+    StorageModule,
   ],
-  exports: [MailerModule],
+  exports: [MailerModule, StorageModule],
 })
 export class CommonModule {}

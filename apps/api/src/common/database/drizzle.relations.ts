@@ -12,7 +12,18 @@ export const relations = defineRelations(schema, (r) => ({
       from: r.users.id,
       to: r.sessions.userId,
     }),
+    files: r.many.files({
+      from: r.users.id,
+      to: r.files.ownerId,
+    }),
   },
+  files: {
+    owner: r.one.users({
+      from: r.files.ownerId,
+      to: r.users.id,
+    }),
+  },
+
   sessions: {
     user: r.one.users({
       from: r.sessions.userId,

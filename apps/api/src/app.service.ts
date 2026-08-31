@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { AppConfig } from './common/configs/app.config.js';
-import { type ConfigType } from '@nestjs/config';
+import { Inject, Injectable } from "@nestjs/common";
+import { AppConfig } from "./configs/app.config.js";
+import { type ConfigType } from "@nestjs/config";
 
 @Injectable()
 export class AppService {
@@ -11,6 +11,6 @@ export class AppService {
 
   getHello(): string {
     console.log(this.appConfig);
-    return 'Hello World!';
+    return "Hello World!";
   }
 }

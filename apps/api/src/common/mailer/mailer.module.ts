@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigType } from "@nestjs/config";
-import { MailerConfig } from "../configs/mailer.config.js";
+import { MailerConfig } from "../../configs/mailer.config.js";
 import { MailerService } from "./mailer.service.js";
 import { MailerTransport } from "./mailer.transport.js";
 import { ResendTransport } from "./transports/resend.transport.js";

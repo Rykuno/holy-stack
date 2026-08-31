@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
 import { InjectDrizzle } from "@nest-native/drizzle";
-import { AppConfig } from "../../common/configs/app.config.js";
+import { AppConfig } from "../../configs/app.config.js";
 import * as schema from "../../common/database/drizzle.schema.js";
 import { type DrizzleClient } from "../../common/database/drizzle.type.js";
 import { type ConfigType } from "@nestjs/config";

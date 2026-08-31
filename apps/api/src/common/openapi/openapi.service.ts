@@ -7,7 +7,7 @@ import openapiTS from "openapi-typescript";
 import { astToString, type OpenAPI3 } from "openapi-typescript/dist/index.js";
 import ts from "typescript";
 import { type ConfigType } from "@nestjs/config";
-import { OpenApiConfig } from "../configs/openapi.confg.js";
+import { OpenApiConfig } from "../../configs/openapi.confg.js";
 
 @Injectable()
 export class OpenApiService {
